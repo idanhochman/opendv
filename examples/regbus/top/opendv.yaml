@@ -1,0 +1,26 @@
+version: 1
+name: top
+toplevel: regbus_top
+
+rtl:
+  filelist: rtl/top.f
+
+coverage:
+  functional: coverage.yml      # written by the env at the end of every simulation
+
+dv:
+  tests:
+    - test_top_irq_is_or_of_regfiles    # the top's own test
+    - test_routing_and_ids              # the fabric's tests, run unchanged against the top
+    - test_window_isolation
+    - test_irq_routing
+    - test_error_response_reaches_master
+    - test_concurrent_disjoint_random
+    - test_same_register_contention
+    - test_response_backpressure
+    - test_reset_mid_operation
+  pythonpath:                   # top reuses the fabric's tests and env, and the regfile's env below it
+    - ../common/dv
+    - ../regfile/dv/env
+    - ../fabric/dv/env
+    - ../fabric/dv/tests          # where those tests live

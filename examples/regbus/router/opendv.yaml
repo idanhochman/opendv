@@ -1,0 +1,13 @@
+version: 1
+name: router
+toplevel: axi_lite_router
+
+rtl:
+  filelist: rtl/router.f
+
+dv:
+  tests: [test_*]               # every module in dv/tests
+  pythonpath: [../common/dv]
+
+coverage:
+  functional: coverage.yml      # written by the env at the end of every simulation

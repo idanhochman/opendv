@@ -1,0 +1,6 @@
+cocotb==2.1.0
+cocotb-bus==0.3.0
+cocotb-coverage==2.0
+cocotbext-axi==0.1.28
+PyYAML==6.0.3
+pytest==9.1.1

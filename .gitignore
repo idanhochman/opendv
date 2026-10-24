@@ -1,0 +1,9 @@
+__pycache__/
+*.egg-info/
+build/
+sim_build/
+regress/
+sim/
+*.fst
+*.vcd
+.pytest_cache/

@@ -1,0 +1,13 @@
+version: 1
+name: regfile
+toplevel: axi_lite_regfile
+
+rtl:
+  filelist: rtl/regfile.f
+
+coverage:
+  functional: coverage.yml      # written by the env at the end of every simulation
+
+dv:
+  tests: [test_*]               # every module in dv/tests
+  pythonpath: [../common/dv]

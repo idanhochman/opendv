@@ -1,0 +1,15 @@
+version: 1
+name: fabric
+toplevel: axi_lite_fabric
+
+rtl:
+  filelist: rtl/fabric.f        # nests router.f and regfile.f through -F
+
+coverage:
+  functional: coverage.yml      # written by the env at the end of every simulation
+
+dv:
+  tests: [test_*]               # every module in dv/tests
+  pythonpath:                   # reuse of the lower levels' verification code
+    - ../common/dv
+    - ../regfile/dv/env

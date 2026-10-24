@@ -1,0 +1,19 @@
+version: 1
+project: regbus
+
+# Targets in display order. Each entry is a directory holding an opendv.yaml.
+targets:
+  - router
+  - regfile
+  - fabric
+  - top
+
+# Defaults for every target; a target file or the command line overrides them.
+defaults:
+  seeds: 8              # a count draws random seeds; a list ([3, 17]) fixes them
+  code_cov: false       # `opendv run --code-cov` turns it on for one run
+  sim:
+    tool: verilator
+    build_args: []
+
+results_dir: regress

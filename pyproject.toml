@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "opendv"
+version = "0.0.1"
+description = "Plug-and-play open-source design verification stack: Verilator + cocotb + regression, coverage and dashboard"
+readme = "README.md"
+license = { text = "Apache-2.0" }
+requires-python = ">=3.12"
+dependencies = ["PyYAML"]
+
+[project.scripts]
+opendv = "opendv.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["opendv*"]
+
+[tool.setuptools.package-data]
+"opendv.report" = ["assets/*"]
+"opendv.codecov" = ["assets/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

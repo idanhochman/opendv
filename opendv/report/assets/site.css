@@ -1,0 +1,63 @@
+:root{--bg:#fafafa;--fg:#1c1e21;--mut:#6b7280;--card:#fff;--line:#e3e5e8;--ok:#1a7f4b;--warn:#b7791f;--bad:#c0392b;
+--okbg:#e4f4ea;--badbg:#fbe5e2;--acc:#2563eb;--side:#f3f4f6}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#14161a;--fg:#e6e8eb;--mut:#9aa1ab;--card:#1d2026;--line:#2d3139;--ok:#4cc38a;
+--warn:#e2b04a;--bad:#ef6f61;--okbg:#17301f;--badbg:#3a1b17;--acc:#7aa2ff;--side:#191c21}}
+:root[data-theme=dark]{--bg:#14161a;--fg:#e6e8eb;--mut:#9aa1ab;--card:#1d2026;--line:#2d3139;--ok:#4cc38a;
+--warn:#e2b04a;--bad:#ef6f61;--okbg:#17301f;--badbg:#3a1b17;--acc:#7aa2ff;--side:#191c21}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,sans-serif;display:grid;grid-template-columns:280px 1fr;min-height:100vh}
+#side{background:var(--side);border-right:1px solid var(--line);padding:14px 10px;position:sticky;top:0;height:100vh;overflow:auto;font-size:13px}
+main{padding:24px 36px 60px;max-width:1000px;min-width:0;width:100%;margin:0 auto}
+h1{font-size:22px;margin:4px 0 2px} h2{font-size:16px;margin:32px 0 10px} h3{font-size:14px;margin:0 0 6px}
+a{color:var(--acc);text-decoration:none} a:hover{text-decoration:underline}
+.muted{color:var(--mut);font-size:12px} .mono,code,pre{font-family:ui-monospace,Menlo,monospace;font-size:12px}
+.crumbs{font-size:12px;color:var(--mut);margin-bottom:6px}
+.tabs{display:flex;gap:4px;flex-wrap:wrap;margin:16px 0 22px;border-bottom:1px solid var(--line)}
+.tab{padding:7px 12px;color:var(--mut);border-bottom:2px solid transparent;margin-bottom:-1px} .tab:hover{color:var(--fg);text-decoration:none}
+.tab.on{color:var(--fg);border-bottom-color:var(--acc);font-weight:600}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:8px 0 6px}
+.card{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--line);border-radius:6px;padding:12px 14px}
+.card.ok{border-left-color:var(--ok)} .card.warn{border-left-color:var(--warn)} .card.bad{border-left-color:var(--bad)} .card.dim .val{color:var(--mut)}
+.lbl{color:var(--mut);font-size:12px;text-transform:uppercase;letter-spacing:.04em} .val{font-size:26px;font-weight:600} .sub{color:var(--mut);font-size:12px}
+table{border-collapse:collapse;width:100%;background:var(--card);border:1px solid var(--line)}
+th,td{padding:7px 10px;border-bottom:1px solid var(--line);text-align:left} th.l,td.l{text-align:left}
+.scroll{overflow-x:auto}
+.matrix td,.matrix th{text-align:center;min-width:30px} .matrix td.l,.matrix th.l{text-align:left}
+.matrix td:first-child,.matrix th:first-child{position:sticky;left:0;z-index:1;background:var(--card);box-shadow:1px 0 0 var(--line)}
+.c-pass{color:var(--ok);background:var(--okbg)} .c-fail{color:var(--bad);background:var(--badbg);font-weight:700}
+.c-error{color:var(--bad);background:var(--badbg)} .c-skip{color:var(--mut)}
+.st-pass{color:var(--ok)} .st-fail,.st-error{color:var(--bad);font-weight:600}
+.bar{display:inline-block;width:120px;height:8px;background:var(--line);border-radius:4px;overflow:hidden;vertical-align:middle} .bar i{display:block;height:100%}
+table.cov{table-layout:fixed} table.cov th:nth-child(1){width:40%} table.cov th:nth-child(2){width:20%} .pcwrap{display:flex;align-items:center;gap:10px} .pcwrap .pc{flex:none;min-width:6ch;text-align:left;font-variant-numeric:tabular-nums} .pcwrap .bar{flex:1;width:auto}
+.bar.ok i{background:var(--ok)} .bar.warn i{background:var(--warn)} .bar.bad i{background:var(--bad)}
+tr.hole td{background:var(--badbg)}
+.fail{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--bad);border-radius:6px;padding:12px 14px;margin:12px 0}
+.repro{display:flex;align-items:center;gap:8px} .repro code{background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:3px 8px}
+button.copy{display:inline-flex;align-items:center;padding:4px 6px;border:1px solid var(--line);border-radius:5px;background:var(--card);color:var(--mut);cursor:pointer}
+button.copy:hover{color:var(--fg)} button.copy.done{color:var(--ok);border-color:var(--ok)}
+.fmsg{color:var(--bad);margin:6px 0 2px;font-family:ui-monospace,Menlo,monospace;font-size:12px} .repro{margin:8px 0 2px} pre{white-space:pre-wrap}
+.landing td.l div{margin-top:2px} .landing td.tests .bar{margin:0 6px} .landing td.tests .cnt{display:inline-block;min-width:var(--cw);font-variant-numeric:tabular-nums}
+.bar.split{display:inline-flex;background:none} .bar.split i{height:100%} .bar.split i.p{background:var(--ok)} .bar.split i.f{background:var(--bad);min-width:3px}
+/* sidebar */
+#navtoggle{position:fixed;top:10px;left:10px;z-index:5;width:30px;height:28px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--fg);cursor:pointer;font-size:15px;line-height:1}
+html.nav-off body{display:block} html.nav-off #side{display:none} html.nav-off main{padding-left:64px;margin:0 auto}
+#side{padding-top:48px;display:flex;flex-direction:column;overflow:hidden}
+/* the run list scrolls on its own: a thin, theme-aware bar that appears while the pointer is over the sidebar, a soft fade
+   at the bottom edge (the padding lets the last row scroll clear of it), and no scroll chaining into the page behind */
+#runs{overflow:auto;flex:1;min-height:0;padding-bottom:16px;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-gutter:stable;scrollbar-color:transparent transparent;-webkit-mask-image:linear-gradient(to bottom,#000 calc(100% - 16px),transparent);mask-image:linear-gradient(to bottom,#000 calc(100% - 16px),transparent)}
+#side:hover #runs{scrollbar-color:color-mix(in srgb,var(--mut) 55%,transparent) transparent}
+#side .theme{margin-top:-36px;margin-bottom:10px;align-self:flex-end}
+#side .theme{float:right;font:inherit;font-size:12px;padding:1px 8px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--mut);cursor:pointer}
+#side .home{display:block;font-weight:600;margin:0 4px 8px;color:var(--fg)}
+#side input{width:100%;padding:5px 8px;margin-bottom:8px;border:1px solid var(--line);border-radius:5px;background:var(--card);color:var(--fg)}
+#side .run{display:flex;align-items:center;padding:4px 8px;border-radius:4px;color:var(--fg);font-family:ui-monospace,Menlo,monospace;font-size:12px}
+#side .run.tgt{padding-left:26px}
+#side .run:hover{background:var(--line);text-decoration:none} #side .run.cur{background:var(--line);font-weight:700}
+.dot{flex:none;display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;background:var(--mut)}
+.dot.d-pass{background:var(--ok)} .dot.d-fail{background:var(--bad)}
+.tflt{width:260px;max-width:100%;padding:5px 8px;margin:0 0 8px;border:1px solid var(--line);border-radius:5px;background:var(--card);color:var(--fg)}
+table.sortable th{cursor:pointer;user-select:none}
+table.sortable th::after{content:" ▲";font-size:9px;visibility:hidden}
+table.sortable th.asc::after,table.sortable th.desc::after{visibility:visible} table.sortable th.desc::after{content:" ▼"}
+/* narrow window: no sidebar and no toggle, the page is just the content (breadcrumbs and tabs navigate) */
+@media(max-width:800px){body{display:block}#side,#navtoggle{display:none}html main,html.nav-off main{padding:16px;margin:0 auto}}

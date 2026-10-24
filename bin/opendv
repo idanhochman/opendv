@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# Run opendv inside the toolchain container, from anywhere in a project.
+#
+# The project root (nearest opendv.yaml with a `targets:` list, else the nearest
+# opendv.yaml) is mounted at the same path inside the container, so every path
+# in the output is valid on the host too, and the working directory is kept
+# so `opendv run <test>` still knows which target you are standing in.
+set -euo pipefail
+
+IMAGE="${OPENDV_IMAGE:-opendv:dev}"
+
+# Help needs no project: no arguments, `help`, or -h/--help anywhere.
+needs_project=1
+[ "$#" -eq 0 ] && needs_project=0
+[ "${1:-}" = "help" ] && needs_project=0
+for a in "$@"; do [ "$a" = "-h" ] || [ "$a" = "--help" ] && needs_project=0; done
+if [ "$needs_project" -eq 0 ]; then
+    exec docker run --rm "$IMAGE" opendv "$@"
+fi
+
+root=""
+nearest=""
+dir="$PWD"
+while :; do
+    if [ -f "$dir/opendv.yaml" ]; then
+        [ -n "$nearest" ] || nearest="$dir"
+        if grep -q '^targets:' "$dir/opendv.yaml"; then root="$dir"; break; fi
+    fi
+    [ "$dir" = "/" ] && break
+    dir="$(dirname "$dir")"
+done
+root="${root:-$nearest}"
+if [ -z "$root" ]; then
+    echo "opendv: no opendv.yaml found in $PWD or any parent directory" >&2
+    exit 2
+fi
+
+tty=()
+[ -t 1 ] && tty=(-t)
+exec docker run --rm "${tty[@]}" --user "$(id -u):$(id -g)" -e HOME=/tmp \
+    -v "$root:$root" -w "$PWD" "$IMAGE" opendv "$@"
