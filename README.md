@@ -9,7 +9,6 @@ HTML dashboard. The toolchain ships as a Docker image so versions always match.
 ## Try it
 
 ```bash
-docker build -t opendv:dev -f docker/Dockerfile .      # once; CI will publish this image later
 export PATH="$PWD/bin:$PATH"                           # the `opendv` wrapper runs the container
 
 cd examples/regbus
@@ -19,6 +18,10 @@ opendv run fabric:test_irq_routing                     # or one test, to debug i
 opendv help                                           # commands and examples; `opendv help run` for one command (works anywhere)
 open regress/index.html                                # the dashboard (any browser)
 ```
+
+The first run downloads the toolchain image (`ghcr.io/idanhochman/opendv`) automatically.
+To use a locally built image instead, e.g. after changing `docker/`:
+`docker build -t opendv:dev -f docker/Dockerfile .` then `export OPENDV_IMAGE=opendv:dev`.
 
 ## Using it
 

@@ -7,7 +7,7 @@
 # so `opendv run <test>` still knows which target you are standing in.
 set -euo pipefail
 
-IMAGE="${OPENDV_IMAGE:-opendv:dev}"
+IMAGE="${OPENDV_IMAGE:-ghcr.io/idanhochman/opendv:edge}"
 
 # Help needs no project: no arguments, `help`, or -h/--help anywhere.
 needs_project=1
